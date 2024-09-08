@@ -19,6 +19,7 @@ int lastButtonState;
 
 void setup() 
    { 
+      // Setting up the button, potentiometer, and LEDs.
       pinMode(BUTTON_PIN, INPUT);
       pinMode(POT_PIN, INPUT);
       FastLED.addLeds<WS2811, DATA_PIN, GRB>(leds, NUM_LEDS);    
@@ -36,6 +37,8 @@ void loop()
       delay(50); /* Change this to your hearts desire, the lower the value the faster your colors move (and vice versa) */
       BRIGHTNESS = (analogRead(POT_PIN) / 5) % 255;
       FastLED.show();
+
+      // Checking if the button was pressed to change out of rainbow mode.
       lastButtonState = buttonState;
       buttonState = digitalRead(BUTTON_PIN);
       if(buttonState == HIGH && lastButtonState == LOW)
@@ -47,14 +50,17 @@ void loop()
   }
   else
   {
+    // Adjusting the LED color by the value of the potentiometer.
     BRIGHTNESS = 200;
     for (int i = 0; i < NUM_LEDS; i++)
     {
       leds[i] = CHSV(potValue, SATURATION, BRIGHTNESS);
     }
-    potValue = (analogRead(POT_PIN) / 4) % 255;
+    potValue = (analogRead(POT_PIN) / 4) % 255;  // Reading the poteniometer value.
     FastLED.show();
   }
+
+  // Checking if the button was pressed to change into rainbow mode.
   lastButtonState = buttonState;
   buttonState = digitalRead(BUTTON_PIN);
   if(buttonState == HIGH && lastButtonState == LOW)
