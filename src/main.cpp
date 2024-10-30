@@ -15,8 +15,9 @@ int potValue = 0;
 
 bool rainbow = false;
 bool colors = false;
-bool halloween = true;
+bool halloween = false;
 bool christmas = false;
+bool wild = true;
 int buttonState;
 int lastButtonState;
 
@@ -29,6 +30,7 @@ void setup()
       pinMode(POT_PIN, INPUT);
       FastLED.addLeds<WS2811, DATA_PIN, GRB>(leds, NUM_LEDS);    
       r = g = b = 0;
+      randomSeed(analogRead(0));
    }
 
 void loop()
@@ -165,6 +167,17 @@ void loop()
     FastLED.setBrightness(BRIGHTNESS);
     FastLED.show();
   }
+  else if(wild)
+  {
+    for(int i = 0; i < NUM_LEDS; i++)
+    {
+      leds[i] = CHSV(random(255), random(255), random(255));
+    }
+    BRIGHTNESS = (analogRead(POT_PIN) / 5) % 255;
+    FastLED.setBrightness(BRIGHTNESS);
+    FastLED.show();
+    delay(50);
+  }
 
   // Checking if the button was pressed to change into rainbow mode.
   lastButtonState = buttonState;
@@ -185,8 +198,13 @@ void loop()
     }
     else if(christmas)
     {
-      rainbow = true;
+      wild = true;
       christmas = false;
+    }
+    else if(wild)
+    {
+      rainbow = true;
+      wild = false;
     }
   }
 }
