@@ -42,7 +42,7 @@ void loop()
         leds[i] = CHSV(i - (j * 2), SATURATION, 255); /* The higher the value 4 the less fade there is and vice versa */ 
       }
       delay(50); /* Change this to your hearts desire, the lower the value the faster your colors move (and vice versa) */
-      BRIGHTNESS = (analogRead(POT_PIN) / 5) % 255;
+      BRIGHTNESS = (analogRead(POT_PIN) / 5) % 255; // Setting brightness from the potentiometer.
       FastLED.setBrightness(BRIGHTNESS);
       FastLED.show();
 
@@ -71,6 +71,7 @@ void loop()
   }
   else if(halloween)
   {
+    // Moving the Halloween colors to make it look like they are moving down the line.
     if(millis() - lastmillis <= 500)
     {
       for(int i = 0; i < NUM_LEDS; i++)
@@ -110,20 +111,13 @@ void loop()
     if(millis() - lastmillis >= 1500)
       lastmillis = millis();
 
-    BRIGHTNESS = (analogRead(POT_PIN) / 5) % 255;
+    BRIGHTNESS = (analogRead(POT_PIN) / 5) % 255; // Setting brightness from the potentiometer.
     FastLED.setBrightness(BRIGHTNESS);
     FastLED.show();
   }
   else if(christmas)
   {
-    for(int i = 0; i < NUM_LEDS - 2; i = i + 3)
-    {
-      leds[i] = CRGB(0x00B30C);
-      // leds[i + 1] = CRGB(0xB3002C);
-      leds[i + 1] = CRGB(0x590D01);
-      leds[i + 2] = CRGB(0xFFFFFF);
-    }
-
+    // Moving the Christamas colors to make it look like they are moving down the line.
     if(millis() - lastmillis <= 500)
     {
       for(int i = 0; i < NUM_LEDS; i++)
@@ -163,23 +157,24 @@ void loop()
     if(millis() - lastmillis >= 1500)
       lastmillis = millis();
 
-    BRIGHTNESS = (analogRead(POT_PIN) / 5) % 255;
+    BRIGHTNESS = (analogRead(POT_PIN) / 5) % 255; // Setting brightness from the potentiometer.
     FastLED.setBrightness(BRIGHTNESS);
     FastLED.show();
   }
   else if(wild)
   {
+    // Setting each segment to a random color.
     for(int i = 0; i < NUM_LEDS; i++)
     {
       leds[i] = CHSV(random(255), random(255), random(255));
     }
-    BRIGHTNESS = (analogRead(POT_PIN) / 5) % 255;
+    BRIGHTNESS = (analogRead(POT_PIN) / 5) % 255; // Setting brightness from the potentiometer.
     FastLED.setBrightness(BRIGHTNESS);
     FastLED.show();
     delay(50);
   }
 
-  // Checking if the button was pressed to change into rainbow mode.
+  // Checking if the button was pressed to change into the next mode.
   lastButtonState = buttonState;
   buttonState = digitalRead(BUTTON_PIN);
   if(buttonState == HIGH && lastButtonState == LOW)
