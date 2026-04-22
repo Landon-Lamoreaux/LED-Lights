@@ -2,8 +2,8 @@
 #include <FastLED.h>
 #define NUM_LEDS 100
 #define DATA_PIN 13
-//#define BRIGHTNESS 200   /* Control the brightness of your leds */
-#define SATURATION 255   /* Control the saturation of your leds */
+//#define BRIGHTNESS 200   // Control the brightness of the leds.
+#define SATURATION 255   // Control the saturation of the leds.
 int BRIGHTNESS = 150;
 int POT_PIN = A1;
 int BUTTON_PIN = 5;
@@ -39,9 +39,9 @@ void loop()
   {
     for (int j = 0; j < 255; j++) {
       for (int i = 0; i < NUM_LEDS; i++) {
-        leds[i] = CHSV(i - (j * 2), SATURATION, 255); /* The higher the value 4 the less fade there is and vice versa */ 
+        leds[i] = CHSV(i - (j * 2), SATURATION, 255); // The higher the j value, the less fade there is.
       }
-      delay(50); /* Change this to your hearts desire, the lower the value the faster your colors move (and vice versa) */
+      delay(50); // Change this to your hearts desire, the lower the value the faster your colors move.
       BRIGHTNESS = (analogRead(POT_PIN) / 5) % 255; // Setting brightness from the potentiometer.
       FastLED.setBrightness(BRIGHTNESS);
       FastLED.show();
